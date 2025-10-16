@@ -33,7 +33,8 @@ import AttendanceSummary from './pages/HR/AttendanceSummary';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import UserManagement from './pages/Admin/UserManagement';
 import Holidays from './pages/Admin/Holidays';
-import Policies from './pages/Admin/Policies';
+import Reports from './pages/Admin/Reports';
+import Policies from './pages/Employee/Policies';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -146,6 +147,16 @@ function AppRoutes() {
         }
       />
       <Route
+        path="/policies"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <Policies />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/profile"
         element={
           <ProtectedRoute>
@@ -230,11 +241,11 @@ function AppRoutes() {
         }
       />
       <Route
-        path="/admin/policies"
+        path="/admin/reports"
         element={
           <ProtectedRoute>
             <MainLayout>
-              <Policies />
+              <AdminDashboard />
             </MainLayout>
           </ProtectedRoute>
         }
