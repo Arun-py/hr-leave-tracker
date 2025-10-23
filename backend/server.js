@@ -27,6 +27,8 @@ const corsOptions = {
     'http://localhost:3000',
     'http://localhost:8081',
     /https:\/\/8081-.+\.premiumproject\.examly\.io/,
+    /https:\/\/.+\.vercel\.app/, // Allow all Vercel deployments
+    /https:\/\/.+\.vercel\.app$/, // Allow Vercel preview deployments
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
