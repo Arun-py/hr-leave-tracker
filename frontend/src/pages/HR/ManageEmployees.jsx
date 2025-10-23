@@ -15,7 +15,9 @@ const ManageEmployees = () => {
   const fetchEmployees = async () => {
     try {
       const { data } = await api.get('/hr/employees');
-      setEmployees(data);
+      // Filter out Admin and HR users from the employee directory
+      const employeesList = data.filter(emp => emp.role === 'Employee');
+      setEmployees(employeesList);
     } catch (error) {
       console.error('Failed to fetch employees:', error);
     } finally {

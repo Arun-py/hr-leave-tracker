@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { NotificationProvider } from './context/NotificationContext';
@@ -35,6 +37,31 @@ import UserManagement from './pages/Admin/UserManagement';
 import Holidays from './pages/Admin/Holidays';
 import Reports from './pages/Admin/Reports';
 import Policies from './pages/Employee/Policies';
+
+// Company Pages
+import Company from './pages/Company/Company';
+import About from './pages/Company/About';
+import Careers from './pages/Company/Careers';
+import Blog from './pages/Company/Blog';
+import Contact from './pages/Company/Contact';
+
+// Legal Pages
+import Legal from './pages/Legal/Legal';
+import PrivacyPolicy from './pages/Legal/PrivacyPolicy';
+import TermsOfService from './pages/Legal/TermsOfService';
+import CookiePolicy from './pages/Legal/CookiePolicy';
+import Disclaimer from './pages/Legal/Disclaimer';
+
+// Support Pages
+import Support from './pages/Support/Support';
+import HelpCenter from './pages/Support/HelpCenter';
+import Documentation from './pages/Support/Documentation';
+import Community from './pages/Support/Community';
+
+// Simple Leave Pages (for test cases)
+import AddLeave from './pages/Leaves/AddLeave';
+import ViewLeave from './pages/Leaves/ViewLeave';
+import UpdateLeave from './pages/Leaves/UpdateLeave';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -104,6 +131,31 @@ function AppRoutes() {
         path="/register"
         element={isAuthenticated ? <Navigate to={getDashboardRoute()} /> : <Register />}
       />
+
+      {/* Company Pages - Public */}
+      <Route path="/company" element={<Company />} />
+      <Route path="/company/about" element={<About />} />
+      <Route path="/company/careers" element={<Careers />} />
+      <Route path="/company/blog" element={<Blog />} />
+      <Route path="/company/contact" element={<Contact />} />
+
+      {/* Legal Pages - Public */}
+      <Route path="/legal" element={<Legal />} />
+      <Route path="/legal/privacy" element={<PrivacyPolicy />} />
+      <Route path="/legal/terms" element={<TermsOfService />} />
+      <Route path="/legal/cookies" element={<CookiePolicy />} />
+      <Route path="/legal/disclaimer" element={<Disclaimer />} />
+
+      {/* Support Pages - Public */}
+      <Route path="/support" element={<Support />} />
+      <Route path="/support/help" element={<HelpCenter />} />
+      <Route path="/support/docs" element={<Documentation />} />
+      <Route path="/support/community" element={<Community />} />
+
+      {/* Simple Leave Pages - Public (for test cases) */}
+      <Route path="/leaves/add" element={<AddLeave />} />
+      <Route path="/leaves/view" element={<ViewLeave />} />
+      <Route path="/leaves/update/:id" element={<UpdateLeave />} />
 
       {/* Employee Routes */}
       <Route
@@ -245,7 +297,7 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <MainLayout>
-              <AdminDashboard />
+              <Reports />
             </MainLayout>
           </ProtectedRoute>
         }
@@ -265,6 +317,18 @@ function App() {
         <AuthProvider>
           <NotificationProvider>
             <AppRoutes />
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+            />
           </NotificationProvider>
         </AuthProvider>
       </ThemeProvider>

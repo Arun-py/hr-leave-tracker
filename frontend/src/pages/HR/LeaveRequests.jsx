@@ -3,6 +3,7 @@ import api from '../../services/api';
 import Loader from '../../components/Loader';
 import Alert from '../../components/Alert';
 import { formatDate } from '../../services/dateUtils';
+import { showToast } from '../../utils/toast';
 
 const LeaveRequests = () => {
   const [leaves, setLeaves] = useState([]);
@@ -31,32 +32,34 @@ const LeaveRequests = () => {
   };
 
   const handleApprove = async (id) => {
-    if (!window.confirm('Are you sure you want to approve this leave request?')) {
-      return;
-    }
-
     try {
+      const leave = leaves.find(l => l._id === id);
       await api.put(`/hr/leave-requests/${id}/approve`);
+      showToast.leaveApproved(leave?.user?.name || 'Employee');
       setMessage({ type: 'success', text: 'Leave request approved successfully!' });
       fetchLeaves();
     } catch (error) {
+      showToast.error(error.response?.data?.message || 'Failed to approve leave');
       setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to approve leave' });
     }
   };
 
   const handleReject = async (id) => {
     if (!rejectionReason.trim()) {
-      alert('Please provide a rejection reason');
+      showToast.warning('Please provide a rejection reason');
       return;
     }
 
     try {
+      const leave = leaves.find(l => l._id === id);
       await api.put(`/hr/leave-requests/${id}/reject`, { rejectionReason });
+      showToast.leaveRejected(leave?.user?.name || 'Employee');
       setMessage({ type: 'success', text: 'Leave request rejected!' });
       setShowRejectModal(null);
       setRejectionReason('');
       fetchLeaves();
     } catch (error) {
+      showToast.error(error.response?.data?.message || 'Failed to reject leave');
       setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to reject leave' });
     }
   };

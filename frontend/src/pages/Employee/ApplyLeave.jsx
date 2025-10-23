@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import Alert from '../../components/Alert';
 import { formatDateForInput, calculateWorkingDays, validateDateRange } from '../../services/dateUtils';
+import { showToast } from '../../utils/toast';
 
 const ApplyLeave = () => {
   const navigate = useNavigate();
@@ -57,11 +58,14 @@ const ApplyLeave = () => {
     const validation = validateDateRange(formData.startDate, formData.endDate);
     if (!validation.valid) {
       setError(validation.message);
+      showToast.error(validation.message);
       return;
     }
 
     if (duration === 0) {
-      setError('No working days in the selected period');
+      const msg = 'No working days in the selected period';
+      setError(msg);
+      showToast.warning(msg);
       return;
     }
 
@@ -69,13 +73,17 @@ const ApplyLeave = () => {
 
     try {
       await api.post('/leaves', formData);
-      setSuccess('Leave application submitted successfully!');
+      const successMsg = 'Leave application submitted successfully!';
+      setSuccess(successMsg);
+      showToast.success(successMsg);
       
       setTimeout(() => {
         navigate('/my-leaves');
       }, 2000);
     } catch (error) {
-      setError(error.response?.data?.message || 'Failed to apply for leave');
+      const errorMsg = error.response?.data?.message || 'Failed to apply for leave';
+      setError(errorMsg);
+      showToast.error(errorMsg);
     } finally {
       setLoading(false);
     }

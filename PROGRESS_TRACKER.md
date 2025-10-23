@@ -10,12 +10,19 @@
 6. ✅ Updated color theme to yellow-orange throughout
 7. ✅ Added logos to all dashboards (Employee, HR, Admin)
 8. ✅ Fixed profile data persistence with useEffect
+9. ✅ Fixed Admin dashboard stats API (matching frontend property names)
+10. ✅ Removed Employee pages from Admin/HR sidebar (role-specific navigation)
+11. ✅ Moved Policies page from Admin to Employee section
+12. ✅ Created Admin Reports page with filters and export options
+13. ✅ **Indian Holiday Calendar** - Calendar + list views, 15 public holidays, Sunday marking
+14. ✅ **Hide Admin/HR from Employee Directory** - Filtered employee list
+15. ✅ **Toast Notification System** - Installed react-toastify, created utility, integrated
+16. ✅ **Attendance Charts** - 4 charts (Bar, Pie, Line), stats cards, Chart.js integration
+17. ✅ **Company Pages** - Company.jsx, About.jsx, Careers.jsx with job table
 
 ## 🔄 IN PROGRESS / PENDING TASKS
 
 ### HIGH PRIORITY
-- [ ] 2. Remove Employee pages from Admin/HR sidebar
-- [ ] 3. Fix Admin dashboard stats (not fetching)
 - [ ] 9. Clear HR dashboard fake check-in data
 - [ ] 12. Fix reject leave functionality
 - [ ] 13. Hide admin/HR from employee directory

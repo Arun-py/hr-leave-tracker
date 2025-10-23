@@ -12,22 +12,27 @@ const Footer = () => {
       { name: 'Workflow', href: '#workflow' }
     ],
     company: [
-      { name: 'About Us', href: '#' },
-      { name: 'Careers', href: '#' },
-      { name: 'Blog', href: '#' },
-      { name: 'Contact', href: '#' }
+      { name: 'Company', href: '/company' },
+      { name: 'About Us', href: '/company/about' },
+      { name: 'Careers', href: '/company/careers' },
+      { name: 'Blog', href: '/company/blog' },
+      { name: 'Contact', href: '/company/contact' }
+    ],
+    resources: [
+      { name: 'Documentation', href: '/support/docs' },
+      { name: 'Community', href: '/support/community' }
     ],
     legal: [
-      { name: 'Privacy Policy', href: '#' },
-      { name: 'Terms of Service', href: '#' },
-      { name: 'Cookie Policy', href: '#' },
-      { name: 'Disclaimer', href: '#' }
+      { name: 'Legal', href: '/legal' },
+      { name: 'Privacy Policy', href: '/legal/privacy' },
+      { name: 'Terms of Service', href: '/legal/terms' },
+      { name: 'Cookie Policy', href: '/legal/cookies' },
+      { name: 'Disclaimer', href: '/legal/disclaimer' }
     ],
     support: [
-      { name: 'Help Center', href: '#' },
-      { name: 'Documentation', href: '#' },
-      { name: 'API Reference', href: '#' },
-      { name: 'Community', href: '#' }
+      { name: 'Support Center', href: '/support' },
+      { name: 'Help Center', href: '/support/help' },
+      { name: 'Contact Us', href: '/company/contact' }
     ]
   };
 
@@ -87,9 +92,23 @@ const Footer = () => {
             <ul className="space-y-2">
               {footerLinks.company.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="hover:text-primary-400 transition-colors">
+                  <Link to={link.href} className="hover:text-primary-400 transition-colors">
                     {link.name}
-                  </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Resources Links */}
+          <div>
+            <h3 className="text-white font-bold mb-4">Resources</h3>
+            <ul className="space-y-2">
+              {footerLinks.resources.map((link, index) => (
+                <li key={index}>
+                  <Link to={link.href} className="hover:text-primary-400 transition-colors">
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -101,9 +120,9 @@ const Footer = () => {
             <ul className="space-y-2">
               {footerLinks.legal.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="hover:text-primary-400 transition-colors">
+                  <Link to={link.href} className="hover:text-primary-400 transition-colors">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -115,9 +134,9 @@ const Footer = () => {
             <ul className="space-y-2">
               {footerLinks.support.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="hover:text-primary-400 transition-colors">
+                  <Link to={link.href} className="hover:text-primary-400 transition-colors">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
