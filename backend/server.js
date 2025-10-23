@@ -44,16 +44,16 @@ app.get('/', (req, res) => {
   res.json({ message: 'HR Leave Tracker API is running...' });
 });
 
-// Simple Leave Routes (as per documentation - no /api prefix, no auth)
-app.use('/', simpleLeaveRoutes);
-
-// Authenticated routes (existing functionality)
+// Authenticated routes (must come before catch-all routes)
 app.use('/api/auth', authRoutes);
 app.use('/api/leaves', leaveRoutes);
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/hr', hrRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/notifications', notificationRoutes);
+
+// Simple Leave Routes (as per documentation - no /api prefix, no auth)
+app.use('/', simpleLeaveRoutes);
 
 // Error handling
 app.use(notFound);
