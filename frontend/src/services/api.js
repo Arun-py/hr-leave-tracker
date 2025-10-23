@@ -7,9 +7,10 @@ const getApiUrl = () => {
     return process.env.REACT_APP_API_URL;
   }
   
-  // If running in production (deployed), use same domain
+  // If running in production (deployed on Vercel)
   if (window.location.hostname !== 'localhost') {
-    return `${window.location.origin}/api`;
+    // Frontend and backend are separate deployments
+    return 'https://hr-leave-tracker.vercel.app/api';
   }
   
   // Default to localhost for development
@@ -17,6 +18,8 @@ const getApiUrl = () => {
 };
 
 const API_URL = getApiUrl();
+
+console.log('🔗 API URL:', API_URL); // Debug log
 
 const api = axios.create({
   baseURL: API_URL,
