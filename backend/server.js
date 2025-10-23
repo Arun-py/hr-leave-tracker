@@ -16,10 +16,16 @@ import simpleLeaveRoutes from './routes/simpleLeaveRoutes.js';
 // Load environment variables
 dotenv.config();
 
-// Connect to database
-connectDB();
-
 const app = express();
+
+// Connect to database (async for serverless)
+let dbConnected = false;
+const initDB = async () => {
+  if (!dbConnected) {
+    await connectDB();
+    dbConnected = true;
+  }
+};
 
 // CORS Configuration (as per documentation requirements)
 const corsOptions = {
