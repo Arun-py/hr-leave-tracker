@@ -1,6 +1,22 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+// Auto-detect API URL based on environment
+const getApiUrl = () => {
+  // If environment variable is set, use it
+  if (process.env.REACT_APP_API_URL) {
+    return process.env.REACT_APP_API_URL;
+  }
+  
+  // If running in production (deployed), use same domain
+  if (window.location.hostname !== 'localhost') {
+    return `${window.location.origin}/api`;
+  }
+  
+  // Default to localhost for development
+  return 'http://localhost:8080/api';
+};
+
+const API_URL = getApiUrl();
 
 const api = axios.create({
   baseURL: API_URL,
