@@ -319,7 +319,7 @@ function App() {
             <AppRoutes />
             <ToastContainer
               position="top-right"
-              autoClose={3000}
+              autoClose={4000}
               hideProgressBar={false}
               newestOnTop
               closeOnClick
@@ -328,6 +328,13 @@ function App() {
               draggable
               pauseOnHover
               theme="colored"
+              transition="bounce"
+              limit={3}
+              style={{
+                top: '80px',
+                right: '20px',
+                zIndex: 9999,
+              }}
             />
           </NotificationProvider>
         </AuthProvider>
