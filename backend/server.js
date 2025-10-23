@@ -16,8 +16,8 @@ import simpleLeaveRoutes from './routes/simpleLeaveRoutes.js';
 // Load environment variables
 dotenv.config();
 
-// Connect to database immediately
-connectDB().catch(err => console.error('DB connection error:', err));
+// Connect to database
+connectDB();
 
 const app = express();
 
@@ -62,11 +62,8 @@ app.use(errorHandler);
 // Port configuration (as per documentation)
 const PORT = process.env.PORT || 8080;
 
-// Only start server if not in Vercel environment
-if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
-  app.listen(PORT, () => {
-    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-  });
-}
+app.listen(PORT, () => {
+  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+});
 
 export default app;
