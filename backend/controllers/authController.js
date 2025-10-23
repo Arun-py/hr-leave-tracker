@@ -15,14 +15,20 @@ export const register = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Generate employee ID
-    const lastUser = await User.findOne().sort({ createdAt: -1 });
-    let employeeId = 'EMP001';
+    // Generate employee ID - find highest existing employeeId
+    const allUsers = await User.find({ employeeId: { $regex: /^EMP\d+$/ } }).select('employeeId');
+    let highestId = 0;
     
-    if (lastUser && lastUser.employeeId) {
-      const lastId = parseInt(lastUser.employeeId.replace('EMP', ''));
-      employeeId = `EMP${String(lastId + 1).padStart(3, '0')}`;
-    }
+    allUsers.forEach(user => {
+      if (user.employeeId && user.employeeId.startsWith('EMP')) {
+        const idNumber = parseInt(user.employeeId.replace('EMP', ''));
+        if (idNumber > highestId) {
+          highestId = idNumber;
+        }
+      }
+    });
+    
+    const employeeId = `EMP${String(highestId + 1).padStart(3, '0')}`;
 
     // Set leave balance based on gender for parental leaves
     const leaveBalance = {
