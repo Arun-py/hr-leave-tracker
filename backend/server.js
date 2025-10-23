@@ -61,9 +61,10 @@ app.use(errorHandler);
 
 // Port configuration (as per documentation)
 const PORT = process.env.PORT || 8080;
+const HOST = process.env.HOST || '0.0.0.0'; // Bind to 0.0.0.0 for Render
 
-app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on ${HOST}:${PORT}`);
 });
 
 export default app;
