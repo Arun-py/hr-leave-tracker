@@ -9,8 +9,8 @@ const getApiUrl = () => {
   
   // If running in production (deployed on Vercel)
   if (window.location.hostname !== 'localhost') {
-    // Frontend and backend are separate deployments
-    return 'https://hr-leave-tracker.vercel.app/api';
+    // Backend deployed on Render.com
+    return 'https://hr-leave-tracker.onrender.com/api';
   }
   
   // Default to localhost for development
