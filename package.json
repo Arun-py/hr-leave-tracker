@@ -1,0 +1,13 @@
+{
+  "name": "hr-leave-tracker",
+  "version": "1.0.0",
+  "description": "HR Leave Tracker - MERN Stack Application",
+  "scripts": {
+    "install": "cd frontend && npm install",
+    "build": "cd frontend && npm run build",
+    "start": "node backend/server.js"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}
