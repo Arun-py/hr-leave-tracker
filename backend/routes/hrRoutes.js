@@ -10,6 +10,7 @@ import {
   getHRDashboard,
   exportLeaveReport,
 } from '../controllers/hrController.js';
+import { getHRNotifications } from '../controllers/notificationController.js';
 import { protect } from '../middleware/authMiddleware.js';
 import { authorize } from '../middleware/roleMiddleware.js';
 
@@ -25,5 +26,6 @@ router.get('/employees/:id', protect, authorize('HR', 'Admin'), getEmployeeById)
 router.put('/employees/:id', protect, authorize('HR', 'Admin'), updateEmployee);
 router.get('/attendance-summary', protect, authorize('HR', 'Admin'), getAttendanceSummary);
 router.get('/reports/leaves/export', protect, authorize('HR', 'Admin'), exportLeaveReport);
+router.get('/notifications', protect, authorize('HR', 'Admin'), getHRNotifications);
 
 export default router;

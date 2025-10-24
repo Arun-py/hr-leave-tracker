@@ -12,6 +12,7 @@ import {
   getAdminDashboard,
   getSystemLogs,
 } from '../controllers/adminController.js';
+import { getAdminNotifications } from '../controllers/notificationController.js';
 import { protect } from '../middleware/authMiddleware.js';
 import { authorize } from '../middleware/roleMiddleware.js';
 
@@ -32,5 +33,6 @@ router.delete('/holidays/:id', protect, authorize('Admin'), deleteHoliday);
 router.put('/leave-policy', protect, authorize('Admin'), updateLeavePolicy);
 router.put('/leave-policy/bulk', protect, authorize('Admin'), bulkUpdateLeavePolicy);
 router.get('/logs', protect, authorize('Admin'), getSystemLogs);
+router.get('/notifications', protect, authorize('Admin'), getAdminNotifications);
 
 export default router;

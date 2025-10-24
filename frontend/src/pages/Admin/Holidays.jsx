@@ -94,14 +94,22 @@ const Holidays = () => {
   const isHoliday = (date) => {
     const dateStr = date.toISOString().split('T')[0];
     return indianHolidays.some(h => h.date === dateStr) || 
-           holidays.some(h => new Date(h.date).toISOString().split('T')[0] === dateStr);
+           holidays.some(h => {
+             const holidayDate = new Date(h.date);
+             const holidayDateStr = new Date(holidayDate.getTime() + holidayDate.getTimezoneOffset() * 60000).toISOString().split('T')[0];
+             return holidayDateStr === dateStr;
+           });
   };
 
   const getHolidayName = (date) => {
     const dateStr = date.toISOString().split('T')[0];
     const indianHol = indianHolidays.find(h => h.date === dateStr);
     if (indianHol) return indianHol.name;
-    const customHol = holidays.find(h => new Date(h.date).toISOString().split('T')[0] === dateStr);
+    const customHol = holidays.find(h => {
+      const holidayDate = new Date(h.date);
+      const holidayDateStr = new Date(holidayDate.getTime() + holidayDate.getTimezoneOffset() * 60000).toISOString().split('T')[0];
+      return holidayDateStr === dateStr;
+    });
     return customHol?.name || '';
   };
 

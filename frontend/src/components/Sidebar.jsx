@@ -9,6 +9,7 @@ import {
   FiSettings,
   FiFileText,
   FiCheckSquare,
+  FiBell,
 } from 'react-icons/fi';
 import useAuth from '../hooks/useAuth';
 
@@ -20,20 +21,25 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
     { name: 'Apply Leave', path: '/apply-leave', icon: FiCalendar },
     { name: 'My Leaves', path: '/my-leaves', icon: FiFileText },
     { name: 'Attendance', path: '/attendance', icon: FiClock },
+    { name: 'Notifications', path: '/notifications', icon: FiBell },
     { name: 'Policies', path: '/policies', icon: FiFileText },
     { name: 'Profile', path: '/profile', icon: FiUser },
   ];
 
   const hrLinks = [
+    { name: 'Dashboard', path: '/hr/dashboard', icon: FiHome },
     { name: 'Leave Requests', path: '/hr/leave-requests', icon: FiCheckSquare },
     { name: 'Employees', path: '/hr/employees', icon: FiUsers },
     { name: 'Attendance Summary', path: '/hr/attendance', icon: FiClock },
+    { name: 'Notifications', path: '/hr/notifications', icon: FiBell },
   ];
 
   const adminLinks = [
+    { name: 'Dashboard', path: '/admin/dashboard', icon: FiHome },
     { name: 'User Management', path: '/admin/users', icon: FiUsers },
     { name: 'Holidays', path: '/admin/holidays', icon: FiCalendar },
     { name: 'Reports', path: '/admin/reports', icon: FiFileText },
+    { name: 'Notifications', path: '/admin/notifications', icon: FiBell },
   ];
 
   const getLinks = () => {

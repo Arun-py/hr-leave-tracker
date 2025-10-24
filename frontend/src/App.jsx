@@ -24,18 +24,21 @@ import ApplyLeave from './pages/Employee/ApplyLeave';
 import MyLeaves from './pages/Employee/MyLeaves';
 import Attendance from './pages/Employee/Attendance';
 import Profile from './pages/Employee/Profile';
+import EmployeeNotifications from './pages/Employee/Notifications';
 
 // HR Pages
 import HRDashboard from './pages/HR/HRDashboard';
 import LeaveRequests from './pages/HR/LeaveRequests';
 import ManageEmployees from './pages/HR/ManageEmployees';
 import AttendanceSummary from './pages/HR/AttendanceSummary';
+import HRNotifications from './pages/HR/Notifications';
 
 // Admin Pages
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import UserManagement from './pages/Admin/UserManagement';
 import Holidays from './pages/Admin/Holidays';
 import Reports from './pages/Admin/Reports';
+import AdminNotifications from './pages/Admin/Notifications';
 import Policies from './pages/Employee/Policies';
 
 // Company Pages
@@ -218,6 +221,16 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/notifications"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <EmployeeNotifications />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
 
       {/* HR Routes */}
       <Route
@@ -260,6 +273,16 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/hr/notifications"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <HRNotifications />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
 
       {/* Admin Routes */}
       <Route
@@ -298,6 +321,16 @@ function AppRoutes() {
           <ProtectedRoute>
             <MainLayout>
               <Reports />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/notifications"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <AdminNotifications />
             </MainLayout>
           </ProtectedRoute>
         }
