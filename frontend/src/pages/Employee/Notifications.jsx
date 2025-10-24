@@ -3,7 +3,7 @@ import { FiBell, FiCheck, FiX, FiCheckCircle, FiXCircle, FiClock, FiCalendar, Fi
 import api from '../../services/api';
 import Loader from '../../components/Loader';
 import { showToast } from '../../utils/toast';
-import { useAuth } from '../../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 const EmployeeNotifications = () => {
   const { user } = useAuth();
