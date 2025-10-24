@@ -32,13 +32,13 @@ const Company = () => {
             <Link to="/" className="text-gray-700 dark:text-gray-300 hover:text-orange-600 transition-colors">
               Home
             </Link>
-            <Link to="/about" className="text-gray-700 dark:text-gray-300 hover:text-orange-600 transition-colors">
+            <Link to="/company/about" className="text-gray-700 dark:text-gray-300 hover:text-orange-600 transition-colors">
               About
             </Link>
-            <Link to="/careers" className="text-gray-700 dark:text-gray-300 hover:text-orange-600 transition-colors">
+            <Link to="/company/careers" className="text-gray-700 dark:text-gray-300 hover:text-orange-600 transition-colors">
               Careers
             </Link>
-            <Link to="/contact" className="text-gray-700 dark:text-gray-300 hover:text-orange-600 transition-colors">
+            <Link to="/company/contact" className="text-gray-700 dark:text-gray-300 hover:text-orange-600 transition-colors">
               Contact
             </Link>
           </nav>
