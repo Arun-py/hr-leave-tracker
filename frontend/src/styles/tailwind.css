@@ -42,22 +42,22 @@ code {
 /* Enhanced Toast Animations */
 @keyframes toastSlideIn {
   from {
-    transform: translateX(400px);
+    transform: translate3d(110%, 0, 0);
     opacity: 0;
   }
   to {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
     opacity: 1;
   }
 }
 
 @keyframes toastSlideOut {
   from {
-    transform: translateX(0) scale(1);
+    transform: translate3d(0, 0, 0);
     opacity: 1;
   }
   to {
-    transform: translateX(400px) scale(0.9);
+    transform: translate3d(110%, 0, 0);
     opacity: 0;
   }
 }
@@ -67,19 +67,24 @@ code {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
   }
 }
 
 /* Toast Container Custom Styles */
+.Toastify__toast-container {
+  z-index: 99999 !important;
+}
+
 .Toastify__toast {
   border-radius: 12px !important;
   padding: 16px 20px !important;
   font-family: inherit !important;
   font-weight: 500 !important;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.1) !important;
-  animation: toastSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
   backdrop-filter: blur(10px) !important;
+  margin-bottom: 12px !important;
+  min-height: 64px !important;
 }
 
 .Toastify__toast--success {

@@ -321,19 +321,18 @@ function App() {
               position="top-right"
               autoClose={4000}
               hideProgressBar={false}
-              newestOnTop
-              closeOnClick
+              newestOnTop={true}
+              closeOnClick={true}
               rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
+              pauseOnFocusLoss={true}
+              draggable={true}
+              pauseOnHover={true}
               theme="colored"
-              transition="bounce"
               limit={3}
               style={{
                 top: '80px',
                 right: '20px',
-                zIndex: 9999,
+                zIndex: 99999,
               }}
             />
           </NotificationProvider>
