@@ -46,8 +46,8 @@ const HRDashboard = () => {
       {/* Welcome Section with Logo */}
       <div className="mb-8 flex items-center justify-between">
         <div className="flex-1">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 bg-clip-text text-transparent">
-            HR Dashboard 👔
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 bg-clip-text text-transparent flex items-center gap-2">
+            <span>👔</span> HR Dashboard
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mt-2">
             Manage employee leaves and attendance
