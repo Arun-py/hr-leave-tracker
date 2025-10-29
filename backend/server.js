@@ -28,11 +28,14 @@ const corsOptions = {
     'http://localhost:3000',
     'http://localhost:8081',
     'https://hr-leave-tracker-lk1b.vercel.app',
+    'https://hr-leave-tracker-frontend.vercel.app',
+    'https://frontend-git-master-aruns-projects-42bc458c.vercel.app',
     /https:\/\/8081-.+\.premiumproject\.examly\.io/,
-    /https:\/\/.+\.vercel\.app/, // Allow all Vercel deployments
+    /https:\/\/.+\.vercel\.app$/, // Allow all Vercel deployments
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
+  optionsSuccessStatus: 200
 };
 
 // Middleware
