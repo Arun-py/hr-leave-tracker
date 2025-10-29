@@ -45,6 +45,10 @@ app.get('/', (req, res) => {
   res.json({ message: 'HR Leave Tracker API is running...' });
 });
 
+app.get('/api/auth/health', (req, res) => {
+  res.json({ status: 'OK', message: 'Server is healthy' });
+});
+
 // Authenticated routes (must come before catch-all routes)
 app.use('/api/auth', authRoutes);
 app.use('/api/leaves', leaveRoutes);

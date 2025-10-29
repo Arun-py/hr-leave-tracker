@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "HR Leave Tracker - MERN Stack Application",
   "scripts": {
-    "install": "cd frontend && npm install",
-    "build": "cd frontend && npm run build",
-    "start": "node backend/server.js"
+    "install": "cd frontend && npm install && cd ../backend && npm install",
+    "frontend": "cd frontend && npm start",
+    "backend": "cd backend && npm run dev",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "build": "cd frontend && npm run build"
   },
-  "engines": {
-    "node": "22.x"
-  }
+  "keywords": ["hr", "leave", "tracker", "mern"],
+  "author": "",
+  "license": "ISC"
 }
