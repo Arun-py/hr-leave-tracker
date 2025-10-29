@@ -2,10 +2,22 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import User from '../models/User.js';
 import Company from '../models/Company.js';
-import connectDB from '../config/db.js';
 
 dotenv.config();
-connectDB();
+
+// MongoDB connection URI
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://Arun_db_user:fxkHhBcrdedLUBZu@cluster0.alzouxa.mongodb.net/hr_leave_tracker';
+
+// Connect to MongoDB
+const connectDB = async () => {
+  try {
+    await mongoose.connect(MONGODB_URI);
+    console.log('MongoDB Connected for multi-company seeding...');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    process.exit(1);
+  }
+};
 
 const companies = [
   { name: 'Oracle', domain: 'oracle.com' },
@@ -18,11 +30,14 @@ const designations = ['Junior', 'Senior', 'Lead', 'Manager', 'Director'];
 
 const seedMultiCompany = async () => {
   try {
+    // Connect to MongoDB
+    await connectDB();
+    
     // Clear existing data
     await User.deleteMany({});
     await Company.deleteMany({});
 
-    console.log('Data cleared!');
+    console.log('✅ Data cleared!');
 
     // Create Admin
     const admin = await User.create({
@@ -52,6 +67,9 @@ const seedMultiCompany = async () => {
 
       console.log(`\n✓ Company created: ${company.name} (${company.domain})`);
 
+      // Create unique HR employee ID for each company
+      const companyCode = companyData.name.substring(0, 3).toUpperCase();
+      
       // Create HR for this company
       const hr = await User.create({
         name: `${companyData.name} HR`,
@@ -60,7 +78,7 @@ const seedMultiCompany = async () => {
         role: 'HR',
         company: companyData.name,
         companyDomain: companyData.domain,
-        employeeId: 'HR001',
+        employeeId: `${companyCode}-HR001`,
         department: 'Human Resources',
         designation: 'HR Manager',
         phone: '+91 9876543211',
@@ -81,7 +99,7 @@ const seedMultiCompany = async () => {
           role: 'Employee',
           company: companyData.name,
           companyDomain: companyData.domain,
-          employeeId: `EMP${empNumber}`,
+          employeeId: `${companyCode}-EMP${empNumber}`,
           department: dept,
           designation: desig,
           phone: `+91 98765432${10 + i}`,

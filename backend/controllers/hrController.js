@@ -138,6 +138,12 @@ export const getAllEmployees = async (req, res) => {
 
     let query = {};
 
+    // HR can only see employees from their own company
+    if (req.user.role === 'HR') {
+      query.companyDomain = req.user.companyDomain;
+    }
+    // Admin can see all employees
+
     if (department) query.department = department;
     if (role) query.role = role;
     if (isActive !== undefined) query.isActive = isActive === 'true';
@@ -263,22 +269,39 @@ export const getAttendanceSummary = async (req, res) => {
 // @access  Private/HR
 export const getHRDashboard = async (req, res) => {
   try {
-    const totalEmployees = await User.countDocuments({ role: 'Employee' });
-    const activeEmployees = await User.countDocuments({ role: 'Employee', isActive: true });
-    const pendingLeaves = await Leave.countDocuments({ status: 'Pending' });
+    let employeeQuery = { role: 'Employee' };
+    let leaveQuery = {};
+    let attendanceQuery = {};
+
+    // HR can only see their company's data
+    if (req.user.role === 'HR') {
+      employeeQuery.companyDomain = req.user.companyDomain;
+      leaveQuery.companyDomain = req.user.companyDomain;
+      
+      // For attendance, we need to get users from the same company first
+      const companyUsers = await User.find({ companyDomain: req.user.companyDomain }).select('_id');
+      const userIds = companyUsers.map(u => u._id);
+      attendanceQuery.user = { $in: userIds };
+    }
+    // Admin can see all
+
+    const totalEmployees = await User.countDocuments(employeeQuery);
+    const activeEmployees = await User.countDocuments({ ...employeeQuery, isActive: true });
+    const pendingLeaves = await Leave.countDocuments({ ...leaveQuery, status: 'Pending' });
     
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
     const todayAttendance = await Attendance.countDocuments({
+      ...attendanceQuery,
       date: {
         $gte: today,
         $lt: new Date(today.getTime() + 24 * 60 * 60 * 1000),
       },
     });
 
-    const recentLeaves = await Leave.find()
-      .populate('user', 'name employeeId email department')
+    const recentLeaves = await Leave.find(leaveQuery)
+      .populate('user', 'name employeeId email department company companyDomain')
       .sort({ createdAt: -1 })
       .limit(10);
 
