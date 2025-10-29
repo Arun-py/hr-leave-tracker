@@ -48,6 +48,34 @@ Start Command: npm start
 
 ### 5. Select Plan
 - Choose **"Free"** plan
+
+### ⚠️ 6. CRITICAL: Add Environment Variables
+
+**BEFORE deploying, click "Advanced" and add these environment variables:**
+
+**Required Variables (MUST SET):**
+
+| Key | Value | Where to Get It |
+|-----|-------|-----------------|
+| `MONGODB_URI` | `mongodb+srv://Arun_db_user:fxkHhBcrdedLUBZu@cluster0.alzouxa.mongodb.net/hr_leave_tracker` | Your MongoDB Atlas connection string |
+| `JWT_SECRET` | Generate using: `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"` | Run in terminal and paste result |
+
+**Optional Variables (with defaults):**
+
+| Key | Value |
+|-----|-------|
+| `JWT_EXPIRE` | `30d` |
+| `NODE_ENV` | `production` |
+| `PORT` | `8080` |
+| `HOST` | `0.0.0.0` |
+
+**How to Add:**
+1. Click **"Advanced"** button
+2. Click **"Add Environment Variable"**
+3. Enter Key and Value
+4. Click **"Add"** for each variable
+
+**⚠️ CRITICAL:** Without `MONGODB_URI` and `JWT_SECRET`, your deployment will fail!
 - Click **"Create Web Service"**
 
 ### 6. Add Environment Variables
