@@ -84,6 +84,8 @@ const generateEmployees = async () => {
       department: department,
       designation: designation,
       role: 'Employee',
+      company: 'TechCorp Solutions',
+      companyDomain: 'company.com',
       isActive: Math.random() > 0.1, // 90% active
       joiningDate: randomDate(new Date(2020, 0, 1), new Date(2023, 11, 31)),
       leaveBalance: {
@@ -194,6 +196,7 @@ const generateLeaveRequests = async (employees) => {
 
       leaveRequests.push({
         user: employee._id,
+        companyDomain: 'company.com',
         leaveType: leaveType,
         startDate: startDate,
         endDate: endDate,
@@ -230,6 +233,8 @@ const createAdminUsers = async () => {
         department: 'Administration',
         designation: 'System Administrator',
         role: 'Admin',
+        company: 'TechCorp Solutions',
+        companyDomain: 'company.com',
         isActive: true,
         joiningDate: new Date(2020, 0, 1)
       });
@@ -247,6 +252,8 @@ const createAdminUsers = async () => {
         department: 'Human Resources',
         designation: 'HR Manager',
         role: 'HR',
+        company: 'TechCorp Solutions',
+        companyDomain: 'company.com',
         isActive: true,
         joiningDate: new Date(2020, 0, 1)
       });

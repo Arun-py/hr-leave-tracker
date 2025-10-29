@@ -41,3 +41,15 @@ export const generateToken = (id) => {
     expiresIn: process.env.JWT_EXPIRE,
   });
 };
+
+// Restrict access to specific roles
+export const restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!req.user || !roles.includes(req.user.role)) {
+      return res.status(403).json({ 
+        message: 'You do not have permission to perform this action' 
+      });
+    }
+    next();
+  };
+};

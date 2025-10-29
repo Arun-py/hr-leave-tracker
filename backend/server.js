@@ -49,6 +49,25 @@ app.get('/', (req, res) => {
   res.json({ message: 'HR Leave Tracker API is running...' });
 });
 
+// API root endpoint
+app.get('/api', (req, res) => {
+  res.json({ 
+    status: 'OK',
+    message: 'HR Leave Tracker API is running...',
+    version: '1.0.0',
+    endpoints: {
+      auth: '/api/auth',
+      leaves: '/api/leaves',
+      attendance: '/api/attendance',
+      hr: '/api/hr',
+      admin: '/api/admin',
+      notifications: '/api/notifications',
+      companies: '/api/companies',
+      public: '/api/public'
+    }
+  });
+});
+
 app.get('/api/auth/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is healthy' });
 });
