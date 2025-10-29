@@ -26,6 +26,17 @@ const userSchema = new mongoose.Schema(
       enum: ['Employee', 'HR', 'Admin'],
       default: 'Employee',
     },
+    company: {
+      type: String,
+      required: [true, 'Company is required'],
+      trim: true,
+    },
+    companyDomain: {
+      type: String,
+      required: [true, 'Company domain is required'],
+      trim: true,
+      lowercase: true,
+    },
     employeeId: {
       type: String,
       unique: true,

@@ -7,6 +7,10 @@ const leaveSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    companyDomain: {
+      type: String,
+      required: true,
+    },
     leaveType: {
       type: String,
       required: [true, 'Please specify leave type'],

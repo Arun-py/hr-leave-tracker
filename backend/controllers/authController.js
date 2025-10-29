@@ -1,4 +1,5 @@
 import User from '../models/User.js';
+import Company from '../models/Company.js';
 import { generateToken } from '../middleware/authMiddleware.js';
 
 // @desc    Register new user
@@ -8,6 +9,52 @@ export const register = async (req, res) => {
   try {
     const { name, email, password, role, department, designation, phone } = req.body;
 
+    // Extract company domain from email
+    const emailDomain = email.split('@')[1];
+    
+    // Special case for admin
+    if (email === 'admin@hrtracker.com') {
+      // Check if admin exists
+      const adminExists = await User.findOne({ email: 'admin@hrtracker.com' });
+      if (adminExists) {
+        return res.status(400).json({ message: 'Admin already exists' });
+      }
+
+      // Create admin user
+      const admin = await User.create({
+        name,
+        email,
+        password,
+        role: 'Admin',
+        company: 'HR Tracker System',
+        companyDomain: 'hrtracker.com',
+        employeeId: 'ADMIN001',
+        department: 'Administration',
+        designation: 'System Administrator',
+        phone: phone || '',
+      });
+
+      return res.status(201).json({
+        _id: admin._id,
+        name: admin.name,
+        email: admin.email,
+        role: admin.role,
+        company: admin.company,
+        employeeId: admin.employeeId,
+        token: generateToken(admin._id),
+      });
+    }
+
+    // Check if company is registered
+    const company = await Company.findOne({ domain: emailDomain, isActive: true });
+    
+    if (!company) {
+      return res.status(403).json({ 
+        message: 'Your company is not registered. Please contact admin to register your company.',
+        companyDomain: emailDomain
+      });
+    }
+
     // Check if user exists
     const userExists = await User.findOne({ email });
 
@@ -15,11 +62,14 @@ export const register = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Generate employee ID - find highest existing employeeId
-    const allUsers = await User.find({ employeeId: { $regex: /^EMP\d+$/ } }).select('employeeId');
-    let highestId = 0;
+    // Generate employee ID - find highest existing employeeId for this company
+    const companyUsers = await User.find({ 
+      companyDomain: emailDomain,
+      employeeId: { $regex: /^EMP\d+$/ } 
+    }).select('employeeId');
     
-    allUsers.forEach(user => {
+    let highestId = 0;
+    companyUsers.forEach(user => {
       if (user.employeeId && user.employeeId.startsWith('EMP')) {
         const idNumber = parseInt(user.employeeId.replace('EMP', ''));
         if (idNumber > highestId) {
@@ -30,7 +80,7 @@ export const register = async (req, res) => {
     
     const employeeId = `EMP${String(highestId + 1).padStart(3, '0')}`;
 
-    // Set leave balance based on gender for parental leaves
+    // Set leave balance
     const leaveBalance = {
       casualLeave: 8,
       sickLeave: 12,
@@ -47,6 +97,8 @@ export const register = async (req, res) => {
       email,
       password,
       role: role || 'Employee',
+      company: company.name,
+      companyDomain: emailDomain,
       employeeId,
       department: department || '',
       designation: designation || '',
@@ -60,6 +112,8 @@ export const register = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        company: user.company,
+        companyDomain: user.companyDomain,
         employeeId: user.employeeId,
         token: generateToken(user._id),
       });

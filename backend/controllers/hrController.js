@@ -15,6 +15,12 @@ export const getPendingLeaveRequests = async (req, res) => {
 
     let query = {};
 
+    // HR can only see their company's leave requests
+    if (req.user.role === 'HR') {
+      query.companyDomain = req.user.companyDomain;
+    }
+    // Admin can see all
+
     if (status) {
       query.status = status;
     } else {
@@ -22,7 +28,7 @@ export const getPendingLeaveRequests = async (req, res) => {
     }
 
     const leaves = await Leave.find(query)
-      .populate('user', 'name employeeId email department designation')
+      .populate('user', 'name employeeId email department designation company companyDomain')
       .populate('approvedBy', 'name email')
       .sort({ createdAt: -1 });
 

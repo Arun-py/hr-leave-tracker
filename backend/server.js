@@ -13,6 +13,7 @@ import adminRoutes from './routes/adminRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
 import simpleLeaveRoutes from './routes/simpleLeaveRoutes.js';
 import publicRoutes from './routes/publicRoutes.js';
+import companyRoutes from './routes/companyRoutes.js';
 
 // Load environment variables
 dotenv.config();
@@ -59,6 +60,7 @@ app.use('/api/attendance', attendanceRoutes);
 app.use('/api/hr', hrRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/companies', companyRoutes);
 
 // Public routes (no authentication required)
 app.use('/api/public', publicRoutes);

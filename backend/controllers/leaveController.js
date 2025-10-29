@@ -47,6 +47,7 @@ export const applyLeave = async (req, res) => {
     // Create leave request
     const leave = await Leave.create({
       user: req.user._id,
+      companyDomain: req.user.companyDomain,
       leaveType,
       startDate: start,
       endDate: end,
